@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>许可证生成器</title>
+    <title>许可证密钥生成器</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
     <style>
         body { 
@@ -60,7 +60,7 @@
         }
         #copyBtn {
             background: #27ae60;
-            display: none; /* 默认隐藏 */
+            display: none;
         }
         #copyBtn:hover {
             background: #219a52;
@@ -75,6 +75,10 @@
             padding: 10px 20px;
             border-radius: 4px;
             display: none;
+            font-size: 14px;
+        }
+        .error {
+            background: #e74c3c;
         }
     </style>
 </head>
@@ -88,7 +92,7 @@
             <button id="copyBtn" onclick="copyLicense()">复制密钥</button>
         </div>
     </div>
-    <div class="toast" id="toast">复制成功!</div>
+    <div class="toast" id="toast"></div>
 
     <script>
         // Base85编码实现 (兼容Python的RFC 1924标准)
@@ -111,7 +115,7 @@
                 );
                 
                 for (let j = 0; j < 5; j++) {
-                    output += alphabet[Math.floor(value / 85**(4 - j)) % 85];
+                    output += alphabet[Math.floor(value / (85 ​** (4 - j))) % 85];
                 }
             }
             
@@ -122,8 +126,11 @@
 
         function generateLicense() {
             const machineCode = document.getElementById('machineCode').value.trim();
+            document.getElementById('output').textContent = '';
+            document.getElementById('copyBtn').style.display = 'none';
+
             if (!machineCode) {
-                alert("请输入有效的机器码");
+                showToast("请输入有效的机器码", true);
                 return;
             }
 
@@ -155,40 +162,55 @@
                 const licenseKey = finalStr.match(/.{1,5}/g).join('-');
                 
                 document.getElementById('output').textContent = licenseKey;
+                document.getElementById('copyBtn').style.display = 'block';
             } catch (error) {
-                alert(`生成失败: ${error.message}`);
+                showToast(`生成失败: ${error.message}`, true);
             }
         }
-        // 新增复制功能
+
         function copyLicense() {
-            const text = document.getElementById('output').textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('复制成功!');
-            }).catch(err => {
-                showToast('复制失败，请手动选择复制');
-            });
+            const output = document.getElementById('output');
+            const text = output.textContent;
+            
+            if (!text) {
+                showToast('没有可复制的内容', true);
+                return;
+            }
+
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            
+            try {
+                textarea.select();
+                const success = document.execCommand('copy');
+                
+                if (success) {
+                    showToast('复制成功!');
+                } else {
+                    throw new Error('复制命令被拒绝');
+                }
+            } catch (err) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('复制成功!');
+                }).catch(() => {
+                    showToast('复制失败，请手动选择文本', true);
+                });
+            } finally {
+                document.body.removeChild(textarea);
+            }
         }
 
-        // 显示提示信息
-        function showToast(message) {
+        function showToast(message, isError = false) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
+            toast.className = isError ? 'toast error' : 'toast';
             toast.style.display = 'block';
+            
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 2000);
         }
-
-        // 修改生成函数显示复制按钮
-        function generateLicense() {
-            // ... 保留之前的生成逻辑 ...
-            
-            // 在生成完成后显示复制按钮
-            document.getElementById('copyBtn').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
