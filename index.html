@@ -53,6 +53,13 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+        #copyBtn {
+            background-color: #2ecc71;
+            margin-top: 10px;
+        }
+        #copyBtn:hover {
+            background-color: #27ae60;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +68,7 @@
         <input type="text" id="machineCode" placeholder="请输入机器码...">
         <button onclick="generateLicense()">生成许可证</button>
         <pre id="output"></pre>
+        <button id="copyBtn" style="display: none;" onclick="copyToClipboard()">复制许可证</button>
     </div>
 
     <script>
@@ -127,10 +135,21 @@
                 // 步骤6: 分组格式化
                 const licenseKey = finalStr.match(/.{1,5}/g).join('-');
                 
+                // 显示生成的许可证
                 document.getElementById('output').textContent = licenseKey;
+                document.getElementById('copyBtn').style.display = 'inline-block';
             } catch (error) {
                 alert(`生成失败: ${error.message}`);
             }
+        }
+
+        function copyToClipboard() {
+            const licenseKey = document.getElementById('output').textContent;
+            navigator.clipboard.writeText(licenseKey).then(() => {
+                alert('许可证已复制到剪贴板!');
+            }).catch(err => {
+                alert('复制失败: ' + err);
+            });
         }
     </script>
 </body>
