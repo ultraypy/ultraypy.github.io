@@ -27,7 +27,7 @@
 
     <script>
         // 生成许可证密钥的函数
-        function generateLicenseKey() {
+        async function generateLicenseKey() {
             const machineCode = document.getElementById("machine_code").value;
 
             if (!machineCode) {
@@ -36,7 +36,7 @@
             }
 
             // 步骤1：SHA3-256哈希处理
-            const sha = sha256(machineCode);
+            const sha = await sha256(machineCode);
 
             // 步骤2：字节顺序反转
             const reversedBytes = Array.from(sha).reverse();
@@ -47,7 +47,7 @@
 
             // 步骤4：双重Base85编码
             const stage1 = base85Encode(xored);
-            const stage2 = base85Encode(stage1);
+            const stage2 = base85Encode(stage1.split('').map(c => c.charCodeAt(0)));
 
             // 步骤5：字符替换和格式化
             const replacements = {
@@ -66,11 +66,10 @@
         }
 
         // 用于计算SHA-256哈希的函数
-        function sha256(str) {
+        async function sha256(str) {
             const hash = new TextEncoder().encode(str);
-            return crypto.subtle.digest('SHA-256', hash).then(buffer => {
-                return new Uint8Array(buffer);
-            });
+            const buffer = await crypto.subtle.digest('SHA-256', hash);
+            return new Uint8Array(buffer);
         }
 
         // Base85编码
