@@ -45,7 +45,7 @@
             const xorKeys = [0x9F, 0xC7, 0x32, 0xAE];
             const xored = reversedBytes.map((b, i) => b ^ xorKeys[i % 4]);
 
-            // 步骤4：双重Base85编码
+            // 步骤4：Base85编码（必须确保编码规则一致）
             const stage1 = base85Encode(xored);
             const stage2 = base85Encode(stage1.split('').map(c => c.charCodeAt(0)));
 
