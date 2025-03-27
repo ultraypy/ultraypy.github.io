@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>许可证密钥生成器</title>
+    <title>许可证生成器</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
     <style>
         body { 
@@ -53,33 +53,6 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        #copyBtn {
-            background: #27ae60;
-            display: none;
-        }
-        #copyBtn:hover {
-            background: #219a52;
-        }
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 4px;
-            display: none;
-            font-size: 14px;
-        }
-        .error {
-            background: #e74c3c;
-        }
     </style>
 </head>
 <body>
@@ -88,11 +61,7 @@
         <input type="text" id="machineCode" placeholder="请输入机器码...">
         <button onclick="generateLicense()">生成许可证</button>
         <pre id="output"></pre>
-        <div class="button-group">
-            <button id="copyBtn" onclick="copyLicense()">复制密钥</button>
-        </div>
     </div>
-    <div class="toast" id="toast"></div>
 
     <script>
         // Base85编码实现 (兼容Python的RFC 1924标准)
@@ -115,7 +84,7 @@
                 );
                 
                 for (let j = 0; j < 5; j++) {
-                    output += alphabet[Math.floor(value / (85 ​** (4 - j))) % 85];
+                    output += alphabet[Math.floor(value / 85**(4 - j)) % 85];
                 }
             }
             
@@ -126,11 +95,8 @@
 
         function generateLicense() {
             const machineCode = document.getElementById('machineCode').value.trim();
-            document.getElementById('output').textContent = '';
-            document.getElementById('copyBtn').style.display = 'none';
-
             if (!machineCode) {
-                showToast("请输入有效的机器码", true);
+                alert("请输入有效的机器码");
                 return;
             }
 
@@ -162,54 +128,9 @@
                 const licenseKey = finalStr.match(/.{1,5}/g).join('-');
                 
                 document.getElementById('output').textContent = licenseKey;
-                document.getElementById('copyBtn').style.display = 'block';
             } catch (error) {
-                showToast(`生成失败: ${error.message}`, true);
+                alert(`生成失败: ${error.message}`);
             }
-        }
-
-        function copyLicense() {
-            const output = document.getElementById('output');
-            const text = output.textContent;
-            
-            if (!text) {
-                showToast('没有可复制的内容', true);
-                return;
-            }
-
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            
-            try {
-                textarea.select();
-                const success = document.execCommand('copy');
-                
-                if (success) {
-                    showToast('复制成功!');
-                } else {
-                    throw new Error('复制命令被拒绝');
-                }
-            } catch (err) {
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('复制成功!');
-                }).catch(() => {
-                    showToast('复制失败，请手动选择文本', true);
-                });
-            } finally {
-                document.body.removeChild(textarea);
-            }
-        }
-
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = isError ? 'toast error' : 'toast';
-            toast.style.display = 'block';
-            
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2000);
         }
     </script>
 </body>
