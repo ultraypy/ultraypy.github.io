@@ -91,8 +91,74 @@
     <div class="toast" id="toast">复制成功!</div>
 
     <script>
-        // ... 保留之前的base85Encode和generateLicense函数 ...
+        // Base85编码实现 (兼容Python的RFC 1924标准)
+        function base85Encode(input) {
+            const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~';
+            const chunkSize = 4;
+            let output = '';
+            
+            for (let i = 0; i < input.length; i += chunkSize) {
+                let chunk = new Uint8Array(chunkSize);
+                for (let j = 0; j < chunkSize; j++) {
+                    chunk[j] = (i + j < input.length) ? input[i + j] : 0;
+                }
+                
+                let value = (
+                    chunk[0] * 256**3 + 
+                    chunk[1] * 256**2 + 
+                    chunk[2] * 256 + 
+                    chunk[3]
+                );
+                
+                for (let j = 0; j < 5; j++) {
+                    output += alphabet[Math.floor(value / 85**(4 - j)) % 85];
+                }
+            }
+            
+            // 移除填充字符
+            const padding = Math.ceil(input.length / chunkSize) * chunkSize - input.length;
+            return padding > 0 ? output.slice(0, -padding) : output;
+        }
 
+        function generateLicense() {
+            const machineCode = document.getElementById('machineCode').value.trim();
+            if (!machineCode) {
+                alert("请输入有效的机器码");
+                return;
+            }
+
+            try {
+                // 步骤1: SHA3-256哈希
+                const shaBytes = new Uint8Array(sha3_256.array(machineCode));
+                
+                // 步骤2: 字节反转
+                const reversed = Array.from(shaBytes).reverse();
+                
+                // 步骤3: 动态异或加密
+                const xorKeys = [0x9F, 0xC7, 0x32, 0xAE];
+                const xored = reversed.map((b, i) => b ^ xorKeys[i % 4]);
+                
+                // 步骤4: 双重Base85编码
+                const stage1 = base85Encode(new Uint8Array(xored));
+                const stage2 = base85Encode(new TextEncoder().encode(stage1));
+                
+                // 步骤5: 字符替换
+                const replacements = {
+                    '0': 'Z', '2': 'X', '5': 'K',
+                    'O': '3', 'I': '7', 'L': 'M'
+                };
+                const finalStr = Array.from(stage2)
+                                    .map(c => replacements[c] || c)
+                                    .join('');
+                
+                // 步骤6: 分组格式化
+                const licenseKey = finalStr.match(/.{1,5}/g).join('-');
+                
+                document.getElementById('output').textContent = licenseKey;
+            } catch (error) {
+                alert(`生成失败: ${error.message}`);
+            }
+        }
         // 新增复制功能
         function copyLicense() {
             const text = document.getElementById('output').textContent;
@@ -120,6 +186,9 @@
             // 在生成完成后显示复制按钮
             document.getElementById('copyBtn').style.display = 'block';
         }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
