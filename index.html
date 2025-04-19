@@ -1,153 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-bs-theme="dark">
 <head>
-    <title>许可证生成器</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.0/sha3.min.js"></script>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            max-width: 600px; 
-            margin: 20px auto; 
-            padding: 20px; 
-            background-color: #f0f2f5;
-        }
-        .container { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        input {
-            padding: 12px;
-            margin: 15px 0;
-            width: 100%;
-            border: 2px solid #3498db;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        button {
-            background: #3498db;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #2980b9;
-        }
-        pre {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 6px;
-            border: 1px solid #ddd;
-            margin-top: 20px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        #copyBtn {
-            background-color: #2ecc71;
-            margin-top: 10px;
-        }
-        #copyBtn:hover {
-            background-color: #27ae60;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="三角洲行动专业辅助工具 - 提供自动任务执行、智能场景识别、24小时稳定运行服务">
+    <meta name="keywords" content="三角洲行动脚本,游戏辅助工具,自动任务脚本,智能游戏助手">
+    <title>三角洲行动智能助手 - 专业游戏辅助工具</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义CSS -->
+    <link href="./assets/css/style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h2>许可证密钥生成器</h2>
-        <input type="text" id="machineCode" placeholder="请输入机器码...">
-        <input type="password" id="password" placeholder="请输入6位数字密码...">
-        <button onclick="generateLicense()">生成许可证</button>
-        <pre id="output"></pre>
-        <button id="copyBtn" style="display: none;" onclick="copyToClipboard()">复制许可证</button>
-    </div>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="./assets/images/logo.png" alt="Logo" width="40" class="me-2">
+                三角洲助手
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">首页</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">功能</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">定价</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#demo">演示</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
+    <!-- 首屏展示 -->
+    <section id="hero" class="hero-section vh-100 d-flex align-items-center">
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-4">三角洲行动智能助手</h1>
+            <p class="lead mb-4">AI驱动 | 智能识别 | 零封号记录 | 24小时技术支持</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="#qq-group" class="btn btn-primary btn-lg px-5">
+                    <i class="bi bi-people-fill me-2"></i>加入QQ群
+                </a>
+                <a href="#pricing" class="btn btn-outline-light btn-lg px-5">
+                    <i class="bi bi-currency-exchange me-2"></i>购买方案
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能展示 -->
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 display-4">核心功能</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow">
+                        <img src="./assets/images/feature1.jpg" class="card-img-top" alt="自动任务">
+                        <div class="card-body">
+                            <h5 class="card-title">智能任务系统</h5>
+                            <ul class="list-unstyled">
+                                <li>✔️ 全自动物资收集</li>
+                                <li>✔️ 智能路线规划</li>
+                                <li>✔️ 自动躲避检测</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 更多功能卡片... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 定价模块 -->
+    <section id="pricing" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 display-4">价格方案</h2>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card pricing-card border-primary">
+                        <div class="card-header bg-primary text-white text-center py-4">
+                            <h4 class="my-0">基础版</h4>
+                            <div class="display-4 my-3">¥30</div>
+                            <small class="text-white-50">/ 每月</small>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-3">✅ 基础功能套件</li>
+                                <li class="mb-3">✅ 每周更新</li>
+                                <li class="mb-3">❌ 高级算法</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100">立即购买</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 更多价格方案... -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 视频演示 -->
+    <section id="demo" class="py-5 bg-dark text-white">
+        <div class="container">
+            <h2 class="text-center mb-5 display-4">操作演示</h2>
+            <div class="ratio ratio-16x9 shadow-lg">
+                <iframe src="//player.bilibili.com/player.html?aid=xxxxx&page=1" 
+                        allowfullscreen
+                        scrolling="no"
+                        border="0"
+                        frameborder="no"
+                        framespacing="0"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- QQ群模块 -->
+    <section id="qq-group" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 text-center">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <h3 class="mb-4">加入用户社区</h3>
+                            <img src="./assets/images/qq-qrcode.png" 
+                                 alt="QQ群二维码" 
+                                 class="img-fluid mb-4"
+                                 style="max-width: 250px;">
+                            <div class="alert alert-info">
+                                QQ群号：<strong>12345678</strong>
+                            </div>
+                            <p class="text-muted">获取最新版本和技术支持</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-body-secondary py-4">
+        <div class="container">
+            <div class="text-center text-muted">
+                <p class="mb-0">© 2023 三角洲助手 - 保留所有权利</p>
+                <small>本产品为第三方辅助工具，与游戏官方无关联</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 脚本 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <!-- 统计代码（示例） -->
     <script>
-        // 预设的6位数字密码（可根据需要修改）
-        const SECRET_PASSWORD = "6";
-
-        function base85Encode(input) {
-            const alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+-;<=>?@^_`{|}~';
-            const chunkSize = 4;
-            let output = '';
-            
-            for (let i = 0; i < input.length; i += chunkSize) {
-                let chunk = new Uint8Array(chunkSize);
-                for (let j = 0; j < chunkSize; j++) {
-                    chunk[j] = (i + j < input.length) ? input[i + j] : 0;
-                }
-                
-                let value = (
-                    chunk[0] * 256**3 + 
-                    chunk[1] * 256**2 + 
-                    chunk[2] * 256 + 
-                    chunk[3]
-                );
-                
-                for (let j = 0; j < 5; j++) {
-                    output += alphabet[Math.floor(value / 85**(4 - j)) % 85];
-                }
-            }
-            
-            const padding = Math.ceil(input.length / chunkSize) * chunkSize - input.length;
-            return padding > 0 ? output.slice(0, -padding) : output;
-        }
-
-        function generateLicense() {
-            const machineCode = document.getElementById('machineCode').value.trim();
-            const password = document.getElementById('password').value.trim();
-
-            if (!machineCode) {
-                alert("请输入有效的机器码");
-                return;
-            }
-            if (password !== SECRET_PASSWORD) {
-                alert("密码错误，请检查输入");
-                return;
-            }
-
-            try {
-                // 原有生成逻辑...
-                const shaBytes = new Uint8Array(sha3_256.array(machineCode));
-                const reversed = Array.from(shaBytes).reverse();
-                const xorKeys = [0x9F, 0xC7, 0x32, 0xAE];
-                const xored = reversed.map((b, i) => b ^ xorKeys[i % 4]);
-                const stage1 = base85Encode(new Uint8Array(xored));
-                const stage2 = base85Encode(new TextEncoder().encode(stage1));
-                const replacements = {
-                    '0': 'Z', '2': 'X', '5': 'K',
-                    'O': '3', 'I': '7', 'L': 'M'
-                };
-                const finalStr = Array.from(stage2)
-                                    .map(c => replacements[c] || c)
-                                    .join('');
-                const licenseKey = finalStr.match(/.{1,5}/g).join('-');
-                
-                document.getElementById('output').textContent = licenseKey;
-                document.getElementById('copyBtn').style.display = 'inline-block';
-            } catch (error) {
-                alert(`生成失败: ${error.message}`);
-            }
-        }
-
-        function copyToClipboard() {
-            const licenseKey = document.getElementById('output').textContent;
-            navigator.clipboard.writeText(licenseKey).then(() => {
-                alert('许可证已复制到剪贴板!');
-            }).catch(err => {
-                alert('复制失败: ' + err);
-            });
-        }
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
     </script>
 </body>
 </html>
