@@ -1,0 +1,39 @@
+/* 自定义样式 */
+:root {
+    --bs-body-font-family: 'Microsoft YaHei', sans-serif;
+}
+
+.hero-section {
+    background: radial-gradient(circle at center, 
+        rgba(40, 40, 40, 0.95) 0%,
+        rgba(20, 20, 20, 0.98) 100%),
+    url('./images/bg-pattern.png');
+    background-size: cover;
+    margin-top: 76px; /* 导航栏高度补偿 */
+}
+
+.pricing-card {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--bs-primary);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+        height: auto;
+    }
+    
+    .display-3 {
+        font-size: 2.5rem;
+    }
+}
