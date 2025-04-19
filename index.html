@@ -1,160 +1,216 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-bs-theme="dark">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="三角洲行动专业辅助工具 - 提供自动任务执行、智能场景识别、24小时稳定运行服务">
-    <meta name="keywords" content="三角洲行动脚本,游戏辅助工具,自动任务脚本,智能游戏助手">
-    <title>三角洲行动智能助手 - 专业游戏辅助工具</title>
-    <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 自定义CSS -->
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <title>三角洲行动智能脚本 - 助力您的游戏体验</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: #222;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto 0;
+            padding: 20px;
+        }
+
+        /* 主标题部分 */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+        }
+
+        /* 功能展示区 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        /* 定价卡片 */
+        .pricing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .price-card {
+            background: #2c2c2c;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        /* 演示视频 */
+        .demo-video {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            aspect-ratio: 16/9;
+        }
+
+        /* 图片展示区 */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* QQ群入口 */
+        .qq-group {
+            text-align: center;
+            padding: 2rem;
+            background: #2c3e50;
+            margin: 2rem 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .price-card {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="./assets/images/logo.png" alt="Logo" width="40" class="me-2">
-                三角洲助手
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#hero">首页</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">功能</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing">定价</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#demo">演示</a></li>
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#features">功能特色</a>
+            <a href="#pricing">价格方案</a>
+            <a href="#demo">演示视频</a>
+            <a href="#contact">加入我们</a>
         </div>
     </nav>
 
-    <!-- 首屏展示 -->
-    <section id="hero" class="hero-section vh-100 d-flex align-items-center">
-        <div class="container text-center">
-            <h1 class="display-3 fw-bold mb-4">三角洲行动智能助手</h1>
-            <p class="lead mb-4">AI驱动 | 智能识别 | 零封号记录 | 24小时技术支持</p>
-            <div class="d-flex gap-3 justify-content-center">
-                <a href="#qq-group" class="btn btn-primary btn-lg px-5">
-                    <i class="bi bi-people-fill me-2"></i>加入QQ群
-                </a>
-                <a href="#pricing" class="btn btn-outline-light btn-lg px-5">
-                    <i class="bi bi-currency-exchange me-2"></i>购买方案
-                </a>
-            </div>
-        </div>
-    </section>
+    <div class="container">
+        <section class="hero">
+            <h1>三角洲行动智能辅助脚本</h1>
+            <p>全新AI算法加持，助您制霸战场</p>
+            <button style="margin-top: 1rem; padding: 12px 24px; background: #27ae60; border: none; border-radius: 5px; color: white; cursor: pointer;">
+                立即加入QQ群
+            </button>
+        </section>
 
-    <!-- 功能展示 -->
-    <section id="features" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">核心功能</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow">
-                        <img src="./assets/images/feature1.jpg" class="card-img-top" alt="自动任务">
-                        <div class="card-body">
-                            <h5 class="card-title">智能任务系统</h5>
-                            <ul class="list-unstyled">
-                                <li>✔️ 全自动物资收集</li>
-                                <li>✔️ 智能路线规划</li>
-                                <li>✔️ 自动躲避检测</li>
-                            </ul>
-                        </div>
-                    </div>
+        <section id="features">
+            <h2>核心功能</h2>
+            <div class="features">
+                <div>
+                    <h3>智能瞄准辅助</h3>
+                    <p>AI辅助压枪/跟枪，命中率提升300%</p>
                 </div>
-                <!-- 更多功能卡片... -->
-            </div>
-        </div>
-    </section>
-
-    <!-- 定价模块 -->
-    <section id="pricing" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">价格方案</h2>
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="card pricing-card border-primary">
-                        <div class="card-header bg-primary text-white text-center py-4">
-                            <h4 class="my-0">基础版</h4>
-                            <div class="display-4 my-3">¥30</div>
-                            <small class="text-white-50">/ 每月</small>
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled">
-                                <li class="mb-3">✅ 基础功能套件</li>
-                                <li class="mb-3">✅ 每周更新</li>
-                                <li class="mb-3">❌ 高级算法</li>
-                            </ul>
-                            <button class="btn btn-outline-primary w-100">立即购买</button>
-                        </div>
-                    </div>
+                <div>
+                    <h3>战术路径规划</h3>
+                    <p>智能分析最佳进攻/防守路线</p>
                 </div>
-                <!-- 更多价格方案... -->
-            </div>
-        </div>
-    </section>
-
-    <!-- 视频演示 -->
-    <section id="demo" class="py-5 bg-dark text-white">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">操作演示</h2>
-            <div class="ratio ratio-16x9 shadow-lg">
-                <iframe src="//player.bilibili.com/player.html?aid=xxxxx&page=1" 
-                        allowfullscreen
-                        scrolling="no"
-                        border="0"
-                        frameborder="no"
-                        framespacing="0"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- QQ群模块 -->
-    <section id="qq-group" class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 text-center">
-                    <div class="card shadow">
-                        <div class="card-body p-5">
-                            <h3 class="mb-4">加入用户社区</h3>
-                            <img src="./assets/images/qq-qrcode.png" 
-                                 alt="QQ群二维码" 
-                                 class="img-fluid mb-4"
-                                 style="max-width: 250px;">
-                            <div class="alert alert-info">
-                                QQ群号：<strong>12345678</strong>
-                            </div>
-                            <p class="text-muted">获取最新版本和技术支持</p>
-                        </div>
-                    </div>
+                <div>
+                    <h3>物资识别系统</h3>
+                    <p>自动标记重要物资和敌方位置</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 页脚 -->
-    <footer class="bg-body-secondary py-4">
-        <div class="container">
-            <div class="text-center text-muted">
-                <p class="mb-0">© 2023 三角洲助手 - 保留所有权利</p>
-                <small>本产品为第三方辅助工具，与游戏官方无关联</small>
+        <section id="demo">
+            <h2>演示视频</h2>
+            <video class="demo-video" controls poster="demo-poster.jpg">
+                <source src="demo-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <h2>效果展示</h2>
+            <div class="gallery">
+                <img src="demo1.jpg" alt="演示1">
+                <img src="demo2.jpg" alt="演示2">
+                <img src="demo3.jpg" alt="演示3">
             </div>
-        </div>
-    </footer>
+        </section>
 
-    <!-- 脚本 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
-    <!-- 统计代码（示例） -->
-    <script>
-        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-        ga('create', 'UA-XXXXX-Y', 'auto');
-        ga('send', 'pageview');
-    </script>
+        <section id="pricing">
+            <h2>价格方案</h2>
+            <div class="pricing-cards">
+                <div class="price-card">
+                    <h3>体验版</h3>
+                    <p>￥15/天</p>
+                    <ul style="text-align: left; margin: 1rem 0;">
+                        <li>基础功能体验</li>
+                        <li>3小时/天限制</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>标准版</h3>
+                    <p>￥98/月</p>
+                    <ul style="text-align: left; margin: 1rem 0;">
+                        <li>全部核心功能</li>
+                        <li>24小时在线支持</li>
+                    </ul>
+                </div>
+                <div class="price-card">
+                    <h3>旗舰版</h3>
+                    <p>￥268/季度</p>
+                    <ul style="text-align: left; margin: 1rem 0;">
+                        <li>优先体验新功能</li>
+                        <li>专属客服通道</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="qq-group" id="contact">
+            <h2>立即加入用户交流群</h2>
+            <p>QQ群号：12345678</p>
+            <img src="qq-qrcode.png" alt="QQ群二维码" style="width: 200px; margin: 1rem auto;">
+        </section>
+    </div>
 </body>
 </html>
