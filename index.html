@@ -1,210 +1,338 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-bs-theme="dark">
+<html lang="zh-CN">
 <head>
+    <meta name="google-site-verification" content="cpzfE5eOx_0MYnPfd1tzVFuXhh-guYwPZyB0OsMev6M" />
+    <meta name="baidu-site-verification" content="codeva-Un2qFhA6Yu" />
+    <meta name="msvalidate.01" content="379E2E0FB141DE5E2297CD8BF1F95C48" />
     <meta charset="UTF-8">
-    <!-- 增强移动端适配 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="三角洲行动专业辅助工具 - 提供自动任务执行、智能场景识别、24小时稳定运行服务">
-    <meta name="keywords" content="三角洲行动脚本,游戏辅助工具,自动任务脚本,智能游戏助手">
-    <title>三角洲行动交易行脚本 - 专业游戏辅助工具</title>
-    
-    <!-- 预加载关键资源 -->
-    <link rel="preload" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" as="style">
-    <link rel="preload" href="./assets/css/style.css" as="style">
-    
-    <!-- Favicon 多格式支持 -->
-    <link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="./assets/images/apple-touch-icon.png">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
-    <!-- 自定义CSS -->
-    <link href="./assets/css/style.css" rel="stylesheet">
-    
-    <!-- 首屏关键CSS -->
-    <style>
-        /* 首屏加载动画 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角洲抢皮肤工具 </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36BFFA',
+                        dark: '#0F172A',
+                        light: '#F8FAFC',
+                        accent: '#F97316',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
         }
-        .hero-section {
-            animation: fadeIn 0.8s ease-out;
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .card-hover:hover {
+                transform: translateY(-8px) scale(1.02);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            }
+            .touch-friendly {
+                touch-action: manipulation;
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            }
+            .glass-effect {
+                backdrop-filter: blur(20px);
+                background: rgba(15, 23, 42, 0.8);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .glow-effect {
+                box-shadow: 0 0 20px rgba(22, 93, 255, 0.3);
+            }
+            .pulse-glow {
+                animation: pulse-glow 2s ease-in-out infinite alternate;
+            }
+            @keyframes pulse-glow {
+                from { box-shadow: 0 0 20px rgba(22, 93, 255, 0.3); }
+                to { box-shadow: 0 0 30px rgba(22, 93, 255, 0.6); }
+            }
+            .fade-in {
+                animation: fadeIn 0.8s ease-out;
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(30px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .slide-in-left {
+                animation: slideInLeft 0.8s ease-out;
+            }
+            @keyframes slideInLeft {
+                from { opacity: 0; transform: translateX(-50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            .slide-in-right {
+                animation: slideInRight 0.8s ease-out;
+            }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+        }
+        /* 响应式设计优化 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            .hero p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            .card {
+                margin-bottom: 1.5rem;
+            }
+            .glass-effect {
+                padding: 1.5rem;
+            }
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            /* 移动端按钮优化 */
+            .touch-friendly {
+                min-height: 48px;
+                font-size: 1rem;
+            }
+            /* 移动端卡片间距 */
+            .grid {
+                gap: 1.5rem;
+            }
+            /* 移动端文字大小调整 */
+            .text-3xl {
+                font-size: 1.875rem;
+            }
+            .text-2xl {
+                font-size: 1.5rem;
+            }
+            .text-xl {
+                font-size: 1.25rem;
+            }
         }
         
-        /* 移动端导航栏优化 */
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: rgba(0,0,0,0.9);
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .glass-effect {
                 padding: 1rem;
-                margin-top: 0.5rem;
-                border-radius: 8px;
+            }
+            .grid {
+                gap: 1rem;
+            }
+            /* 超小屏幕按钮调整 */
+            .touch-friendly {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
-<body>
-    <!-- 加载进度条 -->
-    <div class="progress-container fixed-top" style="height: 3px; background: rgba(0,0,0,0.1);">
-        <div class="progress-bar" role="progressbar" style="width: 0%; background: #0d6efd;"></div>
-    </div>
-
-    <!-- 导航栏优化 -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="./assets/images/logo.png" alt="Logo" width="40" height="40" 
-                     class="me-2 rounded-circle" loading="lazy">
-                三角洲助手
+<body class="gradient-bg text-light antialiased">
+    <!-- 导航栏 -->
+    <header class="fixed w-full top-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <i class="fa fa-gamepad text-primary text-2xl"></i>
+                <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">三角洲工具</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-label="切换导航菜单">
-                <span class="navbar-toggler-icon"></span>
+            <nav class="hidden md:flex space-x-6">
+                <a href="#scripts" class="relative px-4 py-2 rounded-lg hover:text-primary hover:bg-primary/10 transition-all duration-300 group">
+                    <i class="fa fa-cogs mr-2 text-sm"></i>工具介绍
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#tutorials" class="relative px-4 py-2 rounded-lg hover:text-primary hover:bg-primary/10 transition-all duration-300 group">
+                    <i class="fa fa-book mr-2 text-sm"></i>使用教程
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#download" class="relative px-4 py-2 rounded-lg hover:text-primary hover:bg-primary/10 transition-all duration-300 group">
+                    <i class="fa fa-download mr-2 text-sm"></i>下载中心
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#video" class="relative px-4 py-2 rounded-lg hover:text-primary hover:bg-primary/10 transition-all duration-300 group">
+                    <i class="fa fa-play-circle mr-2 text-sm"></i>宣传视频
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="relative px-4 py-2 rounded-lg hover:text-primary hover:bg-primary/10 transition-all duration-300 group">
+                    <i class="fa fa-envelope mr-2 text-sm"></i>联系我们
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+            <button class="md:hidden text-2xl touch-friendly p-2 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-300" id="menu-toggle" aria-label="打开菜单">
+                <i class="fa fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#hero">首页</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#features">功能</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing">定价</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#demo">演示</a></li>
-                </ul>
-            </div>
         </div>
-    </nav>
-
-    <!-- 首屏优化 -->
-    <section id="hero" class="hero-section min-vh-100 d-flex align-items-center">
-        <div class="container text-center">
-            <h1 class="display-3 fw-bold mb-4">三角洲行动交易行脚本</h1>
-            <p class="lead mb-4 opacity-75">AI识别 | 绝对安全 | 24小时技术支持</p>
-            <div class="d-flex flex-wrap gap-3 justify-content-center">
-                <a href="#qq-group" class="btn btn-primary btn-lg px-4 px-md-5 py-3">
-                    <i class="bi bi-people-fill me-2"></i>加入QQ群
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-dark/95 backdrop-blur-md absolute w-full border-t border-white/10" id="mobile-menu">
+            <div class="container mx-auto px-4 py-6 flex flex-col space-y-2">
+                <a href="#scripts" class="flex items-center hover:text-primary hover:bg-primary/10 transition-all duration-300 py-3 px-4 rounded-lg text-lg">
+                    <i class="fa fa-cogs mr-3 text-primary"></i>工具介绍
                 </a>
-                <a href="#pricing" class="btn btn-outline-light btn-lg px-4 px-md-5 py-3">
-                    <i class="bi bi-currency-exchange me-2"></i>购买方案
+                <a href="#tutorials" class="flex items-center hover:text-primary hover:bg-primary/10 transition-all duration-300 py-3 px-4 rounded-lg text-lg">
+                    <i class="fa fa-book mr-3 text-primary"></i>使用教程
+                </a>
+                <a href="#download" class="flex items-center hover:text-primary hover:bg-primary/10 transition-all duration-300 py-3 px-4 rounded-lg text-lg">
+                    <i class="fa fa-download mr-3 text-primary"></i>下载中心
+                </a>
+                <a href="#video" class="flex items-center hover:text-primary hover:bg-primary/10 transition-all duration-300 py-3 px-4 rounded-lg text-lg">
+                    <i class="fa fa-play-circle mr-3 text-primary"></i>宣传视频
+                </a>
+                <a href="#contact" class="flex items-center hover:text-primary hover:bg-primary/10 transition-all duration-300 py-3 px-4 rounded-lg text-lg">
+                    <i class="fa fa-envelope mr-3 text-primary"></i>联系我们
                 </a>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- 功能展示优化 -->
-    <section id="features" class="py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">核心功能</h2>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100 shadow-hover">
-                        <img src="./assets/images/feature1.jpg" 
-                             class="card-img-top" 
-                             alt="自动任务"
-                             loading="lazy"
-                             width="400"
-                             height="300">
-                        <div class="card-body">
-                            <h5 class="card-title">智能任务系统</h5>
-                            <ul class="list-unstyled">
-                                <li class="py-1">✅ 全自动物资收集</li>
-                                <li class="py-1">✅ 智能路线规划</li>
-                                <li class="py-1">✅ 自动躲避检测</li>
-                            </ul>
-                        </div>
-                    </div>
+    <!-- 英雄区域 -->
+    <section class="pt-24 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-dark via-slate-900 to-slate-800 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- 标题和描述 -->
+            <div class="text-center mb-16 slide-in-left">
+                <h1 class="text-[clamp(1.8rem,6vw,3.5rem)] font-bold leading-tight mb-6">
+                    专业<span class="text-primary">三角洲</span>游戏软件工具
+                </h1>
+                <p class="text-gray-300 text-base md:text-lg mb-8 max-w-2xl mx-auto">
+                    提供军火商、滚仓和抢皮肤三大核心工具，让您的游戏体验更上一层楼，操作更轻松，收获更丰富。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#download" class="bg-primary hover:bg-primary/90 text-white font-medium py-4 px-10 rounded-xl transition-all text-center touch-friendly glow-effect pulse-glow transform hover:scale-105 shadow-lg">
+                        <i class="fa fa-download mr-2"></i>立即下载
+                    </a>
+                    <a href="#contact" class="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 hover:border-primary/80 font-medium py-4 px-10 rounded-xl transition-all text-center touch-friendly transform hover:scale-105">
+                        <i class="fa fa-users mr-2"></i>加入社群
+                    </a>
                 </div>
-                <!-- 更多卡片... -->
-            </div>
-        </div>
-    </section>
 
-    <!-- 定价模块优化 -->
-    <section id="pricing" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">价格方案</h2>
-            <div class="row g-4 justify-content-center">
-                <div class="col-lg-4">
-                    <div class="card pricing-card border-primary h-100">
-                        <div class="card-header bg-primary text-white text-center py-4">
-                            <h4 class="my-0">基础版</h4>
-                            <div class="display-4 my-3">¥30</div>
-                            <small class="text-white-50">/ 每月</small>
+                <!-- 战果展示 -->
+                <div class="mt-16 text-center fade-in">
+                    <h3 class="text-2xl font-bold mb-6 text-white flex items-center justify-center">
+                        <i class="fa fa-trophy text-accent mr-3 text-2xl"></i>
+                        ⚔️ 哈夫克军火商抢皮肤战果展示
+                    </h3>
+                    <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+                        来源于：玩家们抢成功收到的邮件 | ⏰ 每三小时更新一次
+                    </p>
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-white/10 backdrop-blur-xl max-w-4xl mx-auto">
+                        <div class="mb-6">
+                            <a href="https://sjz.tenee.top/images/" target="_blank" class="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-medium py-3 px-8 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg glow-effect">
+                                <i class="fa fa-external-link mr-2"></i> 查看完整战果展示
+                            </a>
                         </div>
-                        <div class="card-body d-flex flex-column">
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-3">✅ 基础功能套件</li>
-                                <li class="mb-3">✅ 每周更新</li>
-                                <li class="mb-3">❌ 高级算法</li>
-                            </ul>
-                            <button class="btn btn-primary mt-auto w-100">立即购买</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- 推荐方案 -->
-                <div class="col-lg-4">
-                    <div class="card pricing-card border-warning h-100 shadow-lg">
-                        <div class="card-header bg-warning text-dark text-center py-4">
-                            <h4 class="my-0">专业版</h4>
-                            <div class="display-4 my-3">¥68</div>
-                            <small class="text-dark-50">/ 每月</small>
-                        </div>
-                        <div class="card-body d-flex flex-column">
-                            <ul class="list-unstyled mb-4">
-                                <li class="mb-3">✅ 全部功能套件</li>
-                                <li class="mb-3">✅ 每日更新</li>
-                                <li class="mb-3">✅ 优先技术支持</li>
-                            </ul>
-                            <button class="btn btn-warning mt-auto w-100">立即购买</button>
+                        <div class="text-gray-400 text-sm">
+                            <p class="mb-2">📸 实时展示玩家抢购成功的战果截图</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 视频演示优化 -->
-    <section id="demo" class="py-5 bg-dark text-white">
-        <div class="container">
-            <h2 class="text-center mb-5 display-4">操作演示</h2>
-            <div class="ratio ratio-16x9 shadow-lg bg-black">
-                <iframe src="//player.bilibili.com/player.html?aid=xxxxx&page=1" 
-                        allowfullscreen
-                        loading="lazy"
-                        title="功能演示视频"
-                        style="border-radius: 8px;"></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- QQ群模块优化 -->
-    <section id="qq-group" class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
-                    <div class="card shadow-hover transition-all">
-                        <div class="card-body p-4 p-md-5">
-                            <h3 class="text-center mb-4">加入用户社区</h3>
-                            <div class="text-center">
-                                <img src="./assets/images/qq-qrcode.png" 
-                                     alt="QQ群二维码" 
-                                     class="img-fluid mb-4 rounded-3"
-                                     loading="lazy"
-                                     width="250"
-                                     height="250">
+            <!-- 下载中心和购买链接并排布局 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+                <!-- 下载中心 -->
+                <div class="slide-in-left">
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-white/10 backdrop-blur-xl h-full">
+                        <h2 class="text-3xl font-bold mb-8 text-center text-white flex items-center justify-center">
+                            <i class="fa fa-download text-primary mr-3 text-2xl"></i>
+                            下载中心
+                        </h2>
+                        <div class="space-y-6">
+                            <!-- 军火商下载 -->
+                            <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-gray-700/50 flex items-center card-hover backdrop-blur-sm">
+                                <div class="w-16 h-16 bg-gradient-to-br from-primary/30 to-primary/10 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                                    <i class="fa fa-cubes text-primary text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold mb-2 text-white">军火商工具</h3>
+                                </div>
+                                <a href="https://ultraypy.lanzoul.com/imHmD35glwsb" target="_blank" class="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg glow-effect">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </a>
                             </div>
-                            <div class="input-group mb-3">
-                                <input type="text" 
-                                       class="form-control text-center" 
-                                       value="QQ群号：692434895"
-                                       readonly
-                                       id="qqGroupNumber">
-                                <button class="btn btn-outline-secondary" 
-                                        type="button"
-                                        onclick="copyQQGroup()">
-                                    复制
-                                </button>
+
+                            <!-- 滚仓下载 -->
+                            <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-gray-700/50 flex items-center card-hover backdrop-blur-sm">
+                                <div class="w-16 h-16 bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                                    <i class="fa fa-refresh text-secondary text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold mb-2 text-white">滚仓工具</h3>
+                                </div>
+                                <a href="#" class="bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </a>
                             </div>
-                            <p class="text-muted text-center mb-0">获取最新版本和技术支持</p>
+
+                            <!-- 抢皮肤下载 -->
+                            <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-gray-700/50 flex items-center card-hover backdrop-blur-sm">
+                                <div class="w-16 h-16 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                                    <i class="fa fa-tshirt text-accent text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold mb-2 text-white">抢皮肤工具</h3>
+                                </div>
+                                <a href="#" class="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg">
+                                    <i class="fa fa-download mr-2"></i> 下载
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 直接购买 -->
+                <div class="slide-in-right">
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl border border-white/10 backdrop-blur-xl h-full border-4 border-primary/50 glow-effect pulse-glow">
+                        <h2 class="text-3xl font-bold mb-8 text-center text-white flex items-center justify-center">
+                            <i class="fa fa-shopping-cart text-accent mr-3 text-2xl"></i>
+                            🛒 直接购买 🛒
+                        </h2>
+                        <div class="space-y-6">
+                            <a href="https://h5.m.goofish.com/item?id=959662376843" target="_blank" class="block bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium py-6 px-8 rounded-xl transition-all text-center touch-friendly transform hover:scale-105 shadow-lg hover:shadow-blue-500/25 border-2 border-blue-400/50 hover:border-blue-400/70 glow-effect">
+                                <div class="flex items-center justify-center mb-2">
+                                    <i class="fa fa-refresh mr-3 text-2xl"></i>
+                                    <span class="text-xl font-bold">🔄 滚仓工具</span>
+                                </div>
+                                <p class="text-blue-100 text-sm">点击购买正版授权</p>
+                            </a>
+                            
+                            <a href="https://h5.m.goofish.com/item?id=958998209140" target="_blank" class="block bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-medium py-6 px-8 rounded-xl transition-all text-center touch-friendly transform hover:scale-105 shadow-lg hover:shadow-purple-500/25 border-2 border-purple-400/50 hover:border-purple-400/70 glow-effect">
+                                <div class="flex items-center justify-center mb-2">
+                                    <i class="fa fa-tshirt mr-3 text-2xl"></i>
+                                    <span class="text-xl font-bold">🎨 双模式皮肤</span>
+                                </div>
+                                <p class="text-purple-100 text-sm">点击购买正版授权</p>
+                            </a>
+                            
+                            <a href="https://h5.m.goofish.com/item?id=911178877721" target="_blank" class="block bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-6 px-8 rounded-xl transition-all text-center touch-friendly transform hover:scale-105 shadow-lg hover:shadow-green-500/25 border-2 border-green-400/50 hover:border-green-400/70 glow-effect">
+                                <div class="flex items-center justify-center mb-2">
+                                    <i class="fa fa-cubes mr-3 text-2xl"></i>
+                                    <span class="text-xl font-bold">💰 军火商交易行</span>
+                                </div>
+                                <p class="text-green-100 text-sm">点击购买正版授权</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -212,67 +340,368 @@
         </div>
     </section>
 
-    <!-- 页脚增强 -->
-    <footer class="bg-body-secondary py-4">
-        <div class="container">
-            <div class="text-center text-muted">
-                <div class="d-flex flex-wrap justify-content-center gap-3 mb-2">
-                    <a href="#" class="text-reset text-decoration-none">用户协议</a>
-                    <span class="d-none d-md-inline">|</span>
-                    <a href="#" class="text-reset text-decoration-none">隐私政策</a>
-                    <span class="d-none d-md-inline">|</span>
-                    <a href="#" class="text-reset text-decoration-none">免责声明</a>
+    <!-- 脚本介绍 -->
+    <section id="scripts" class="py-16 md:py-24 bg-gradient-to-b from-slate-800 to-slate-900 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/3 to-secondary/3"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">核心工具介绍</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">我们提供三款专业三角洲工具，满足您在游戏中的各种需求，操作简单，功能强大</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 军火商脚本 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary/30 to-primary/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-cubes text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">军火商工具</h3>
+                     <p class="text-gray-400 mb-6">
+                         交易行抢低价子弹、配件
+                     </p>
+
+                    <a href="#download" class="text-primary hover:text-primary/80 font-medium inline-flex items-center transition-colors touch-friendly">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
-                <p class="mb-0">© 2023 三角洲助手 - 保留所有权利</p>
-                <small>本产品为第三方辅助工具，与游戏官方无关联</small>
+
+                <!-- 滚仓脚本 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-refresh text-secondary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">滚仓工具</h3>
+                     <p class="text-gray-400 mb-6">
+                         配装枪子弹
+                     </p>
+
+                    <a href="#download" class="text-secondary hover:text-secondary/80 font-medium inline-flex items-center transition-colors touch-friendly">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- 抢皮肤脚本 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-tshirt text-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">抢皮肤工具</h3>
+                     <p class="text-gray-400 mb-6">
+                         强抢低价市场的皮肤和饰品
+                     </p>
+
+                    <a href="#download" class="text-accent hover:text-accent/80 font-medium inline-flex items-center transition-colors touch-friendly">
+                        了解更多 <i class="fa fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教程板块 -->
+    <section id="tutorials" class="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-gray-900 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-accent/3 to-primary/3"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">使用教程</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">详细的使用教程和操作指南，帮助您快速上手各种工具</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- 抢皮肤教程 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-tshirt text-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">抢皮肤教程</h3>
+                    <p class="text-gray-400 mb-6">详细的抢皮肤工具使用指南，包含操作步骤和注意事项</p>
+                    <a href="https://docs.qq.com/doc/DVXJZS3JoUVpxZUdV" target="_blank" class="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg">
+                        <i class="fa fa-book mr-2"></i> 查看教程
+                    </a>
+                </div>
+
+                <!-- 军火商教程 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary/30 to-primary/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-cubes text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">军火商教程</h3>
+                    <p class="text-gray-400 mb-6">军火商工具完整使用手册，助您掌握交易技巧</p>
+                    <a href="https://docs.qq.com/doc/DUEhVd3h2bFhyR2RD" target="_blank" class="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg glow-effect">
+                        <i class="fa fa-book mr-2"></i> 查看教程
+                    </a>
+                </div>
+
+                <!-- 滚仓教程 -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl card-hover border border-white/10 backdrop-blur-xl fade-in">
+                    <div class="w-16 h-16 bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                        <i class="fa fa-refresh text-secondary text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-white">滚仓教程</h3>
+                    <p class="text-gray-400 mb-6">滚仓工具操作教程，让您轻松掌握配装技巧</p>
+                    <a href="https://docs.qq.com/doc/DUE9NdXZXbEFjTkZn" target="_blank" class="bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-white font-medium py-3 px-6 rounded-xl transition-all inline-flex items-center touch-friendly transform hover:scale-105 shadow-lg">
+                        <i class="fa fa-book mr-2"></i> 查看教程
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 宣传视频 -->
+    <section id="video" class="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-dark relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-accent/3 to-primary/3"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">宣传视频</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">观看我们的工具功能演示，了解如何提升您的游戏体验</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto px-2">
+                <div class="rounded-3xl overflow-hidden shadow-2xl relative aspect-video glass-effect border border-white/10 backdrop-blur-xl">
+                    <!-- B站视频嵌入 -->
+                    <iframe src="https://player.bilibili.com/player.html?bvid=BV13ZYVzoESE&page=1&high_quality=1&danmaku=0" 
+                            scrolling="no" 
+                            border="0" 
+                            frameborder="no" 
+                            framespacing="0" 
+                            allowfullscreen="true" 
+                            class="w-full h-full">
+                    </iframe>
+                </div>
+                <div class="text-center mt-6">
+                    <a href="https://www.bilibili.com/video/BV13ZYVzoESE/?vd_source=5c53e6c3541c2a716bd0fa96dadf7fcf" target="_blank" class="inline-flex items-center bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-medium py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        <i class="fa fa-external-link mr-2"></i>在B站观看完整视频
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 咸鱼链接 -->
+    <section class="py-16 md:py-24 bg-gray-900/30">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold mb-4">购买与支持</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">通过咸鱼购买我们的工具，获取专业支持和服务</p>
+            </div>
+
+            <div class="max-w-2xl mx-auto bg-dark rounded-xl p-8 border border-gray-800 shadow-lg">
+                <div class="flex flex-col md:flex-row gap-6 items-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-400 to-red-500 rounded-lg flex items-center justify-center">
+                        <i class="fa fa-shopping-bag text-white text-3xl"></i>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-xl font-bold mb-2">咸鱼购买链接</h3>
+                        <p class="text-gray-400 mb-4">点击下方链接，前往咸鱼购买正版三角洲工具，享受全程技术支持</p>
+                        <a href="https://m.tb.cn/h.hzvykSb?tk=T2uS4KfJCSb" target="_blank" class="inline-flex items-center bg-gradient-to-r from-yellow-400 to-red-500 hover:opacity-90 text-white font-medium py-3 px-8 rounded-lg transition-all text-lg touch-friendly">
+                            <i class="fa fa-link mr-2"></i> 访问咸鱼店铺
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 md:py-24 bg-gradient-to-b from-dark to-slate-900 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-secondary/3 to-accent/3"></div>
+        <div class="absolute top-20 right-10 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 left-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-[clamp(1.5rem,5vw,2.5rem)] font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">联系我们</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">加入我们的QQ群，获取最新资讯、技术支持和用户交流</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- QQ群1 -->
+                <div class="glass-effect rounded-2xl p-8 border border-white/10 text-center card-hover backdrop-blur-xl fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-primary/30 to-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg">
+                        <i class="fa fa-users text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">三角洲工具一群</h3>
+                    <p class="text-gray-200 font-mono mb-6 text-xl bg-gray-800/50 rounded-lg py-2 px-4">692434895</p>
+                    <button class="copy-btn bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-medium py-3 px-8 rounded-xl transition-all touch-friendly transform hover:scale-105 shadow-lg" data-clipboard-text="692434895">
+                        <i class="fa fa-copy mr-2"></i> 复制群号
+                    </button>
+                </div>
+
+                <!-- QQ群2 -->
+                <div class="glass-effect rounded-2xl p-8 border border-white/10 text-center card-hover backdrop-blur-xl fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg">
+                        <i class="fa fa-users text-secondary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">三角洲工具二群</h3>
+                    <p class="text-gray-200 font-mono mb-6 text-xl bg-gray-800/50 rounded-lg py-2 px-4">647424289</p>
+                    <button class="copy-btn bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-white font-medium py-3 px-8 rounded-xl transition-all touch-friendly transform hover:scale-105 shadow-lg" data-clipboard-text="647424289">
+                        <i class="fa fa-copy mr-2"></i> 复制群号
+                    </button>
+                </div>
+
+                <!-- QQ群3 -->
+                <div class="glass-effect rounded-2xl p-8 border border-white/10 text-center card-hover backdrop-blur-xl fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg">
+                        <i class="fa fa-users text-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-white">三角洲工具三群</h3>
+                    <p class="text-gray-200 font-mono mb-6 text-xl bg-gray-800/50 rounded-lg py-2 px-4">612620378</p>
+                    <button class="copy-btn bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-medium py-3 px-8 rounded-xl transition-all touch-friendly transform hover:scale-105 shadow-lg" data-clipboard-text="612620378">
+                        <i class="fa fa-copy mr-2"></i> 复制群号
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-12 max-w-2xl mx-auto bg-gray-900/30 rounded-xl p-6 border border-gray-800">
+                <h4 class="text-lg font-semibold mb-4 flex items-center">
+                    <i class="fa fa-comments text-primary mr-2"></i> 客服支持
+                </h4>
+                <p class="text-gray-300 mb-4">
+                    如有任何问题或建议，请加入我们的QQ群联系客服，我们将尽快为您解答。
+                </p>
+                <p class="text-gray-300">
+                    工作时间：周一至周日 9:00-22:00
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="py-16 bg-gradient-to-t from-gray-900 via-gray-800 to-gray-900 border-t border-white/10 relative overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl opacity-20"></div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-8 md:mb-0 text-center md:text-left">
+                    <div class="flex items-center space-x-2 mb-3 justify-center md:justify-start">
+                        <i class="fa fa-gamepad text-primary text-2xl"></i>
+                        <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">三角洲工具</span>
+                    </div>
+                    <p class="text-gray-400 text-base">专业的游戏软件工具提供商</p>
+                </div>
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-all duration-300 transform hover:scale-110">
+                        <i class="fa fa-question-circle mr-2"></i> 帮助中心
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-all duration-300 transform hover:scale-110">
+                        <i class="fa fa-file-text mr-2"></i> 使用条款
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-all duration-300 transform hover:scale-110">
+                        <i class="fa fa-shield mr-2"></i> 隐私政策
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/10 text-center">
+                <p class="text-gray-400 text-base mb-4">© 2025 三角洲工具 版权所有 | 本工具仅供学习交流使用，请勿用于商业用途</p>
+                <div class="flex justify-center space-x-8">
+                    <a href="#" class="text-gray-500 hover:text-primary transition-all duration-300 transform hover:scale-125">
+                        <i class="fab fa-qq text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-secondary transition-all duration-300 transform hover:scale-125">
+                        <i class="fab fa-weixin text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-accent transition-all duration-300 transform hover:scale-125">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- 脚本优化 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <!-- 通知提示 -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center z-50">
+        <i class="fa fa-check-circle text-green-500 mr-2"></i>
+        <span id="toast-message">操作成功</span>
+    </div>
+
     <script>
-        // 加载进度条控制
-        window.addEventListener('load', () => {
-            document.querySelector('.progress-container').style.display = 'none';
-        });
-
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            const scrollTop = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / height) * 100;
-            document.querySelector('.progress-bar').style.width = progress + '%';
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+            }
         });
 
-        // 复制QQ群功能
-        function copyQQGroup() {
-            const input = document.getElementById('qqGroupNumber');
-            input.select();
-            document.execCommand('copy');
-            alert('群号已复制到剪贴板');
-        }
+        // 移动端菜单切换
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-        // 图片懒加载
-        document.addEventListener('DOMContentLoaded', () => {
-            const lazyImages = [].slice.call(document.querySelectorAll('img[loading="lazy"]'));
-            
-            if ('IntersectionObserver' in window) {
-                const lazyImageObserver = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            const lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            lazyImage.classList.add('loaded');
-                            lazyImageObserver.unobserve(lazyImage);
-                        }
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
                     });
-                });
+                    
+                    // 关闭移动菜单
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
 
-                lazyImages.forEach((lazyImage) => {
-                    lazyImageObserver.observe(lazyImage);
+        // 复制QQ群号功能
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        copyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const textToCopy = button.getAttribute('data-clipboard-text');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // 显示提示
+                    toastMessage.textContent = `已复制: ${textToCopy}`;
+                    toast.classList.remove('translate-y-20', 'opacity-0');
+                    toast.classList.add('translate-y-0', 'opacity-100');
+                    
+                    // 3秒后隐藏提示
+                    setTimeout(() => {
+                        toast.classList.remove('translate-y-0', 'opacity-100');
+                        toast.classList.add('translate-y-20', 'opacity-0');
+                    }, 3000);
                 });
-            }
+            });
+        });
+
+        // 防止移动端双击缩放
+        document.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
         });
     </script>
 </body>
 </html>
+    
